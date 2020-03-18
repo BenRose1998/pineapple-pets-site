@@ -1,0 +1,275 @@
+#main {
+  margin-top: 1%;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+/* Nav bar */
+.navbar-custom {
+  background-color: #D62828;
+
+}
+
+.navbar-brand,
+.nav-white {
+  color: white !important;
+}
+
+/* Nav pills */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+  background-color: #D62828;
+}
+
+.nav-pills .nav-link, .nav-pills .show > .nav-link{
+  color:#D62828;
+}
+
+#nav-content {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+
+button {
+  font-size: 15px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #D62828;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.error {
+  color: red;
+}
+
+/* Big image */
+#bigimage {
+  height: 58vh;
+  background-image: url('../images/rescue.jpg');
+  background-position: center calc(50% - 35px);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  color: white;
+  padding-top: center;
+  padding-bottom: auto;
+  position: relative;
+}
+
+.centre {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#bigimage h1 {
+  font-size: 80px;
+}
+
+#bigimage p {
+  font-size: 23px;
+  margin-top: 40px;
+  color: #22181C;
+}
+
+#bigimageButton {
+  margin-top: 2%;
+}
+
+/* Figures */
+
+#icons {
+  padding-top: 0.5%;
+  padding-bottom: 2%;
+}
+
+.icon {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  width: 25%;
+  vertical-align: baseline;
+  margin-top: 2%;
+  color: #D62828;
+}
+
+.icon i {
+  padding-bottom: 10%;
+}
+
+/* Pet figures */
+.pet img {
+  max-height: 300px;
+  max-width: 240px;
+  padding-left: 15px;
+}
+
+figure.pet img {
+  float: left;
+}
+
+figure .description {
+  margin: auto;
+  margin-left: 2%;
+}
+
+div.pets {
+  margin-top: 3%;
+}
+
+.pet h2 {
+  color: #D62828;
+}
+
+.pet h2:hover {
+  font-weight: bolder;
+}
+
+/* Log in page */
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  padding-left: auto;
+  padding-right: auto;
+  padding-top: 10%;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#login-button {
+  margin-bottom: 2%;
+}
+
+
+
+/* View Pet */
+.view-pet img {
+  max-width: 30%;
+  max-height: 40%;
+  float: left;
+}
+
+.view-pet h1{
+  color: #D62828;
+}
+
+.pet-description {
+  float: left;
+  margin-left: 2%;
+}
+
+p {
+  font-size: 1.3rem;
+}
+
+/* Pets */
+#search {
+  padding-left: 15px;
+}
+
+button#go {
+  margin-left: 15px;
+}
+
+.pets-description {
+  float: left;
+  margin-left: 1%;
+}
+
+
+/* Navigation pills */
+.nav-pills {
+  padding-right: 0;
+  padding-left: 15px;
+}
+
+/* Edit Form */
+
+.input-type {
+  float: left;
+}
+
+.question-text {
+  float: right;
+}
+
+.option-input {
+  float: left;
+  margin-right: 2%;
+}
+
+.add-option {
+  float: right;
+  margin-bottom: 1.5%;
+}
+
+/* Mobile device responsive */
+@media only screen and (max-width: 767px) {
+  #bigimage h1 {
+    font-size:4rem;
+  }
+
+  #main {
+    width: 100%;
+  }
+
+  #nav-content {
+    width: 100%;
+  }
+
+  .icon {
+    width: 100%;
+  }
+
+  .icon i {
+    font-size: 11em;
+  }
+
+  #bigimage {
+    background-size: 400%;
+    height: 95vh;
+  }
+
+  /* View Pet */
+  .view-pet img {
+    max-height: 50vh;
+    max-width: 90vw;
+    
+  }
+}
