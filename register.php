@@ -37,6 +37,16 @@ if (isset($_POST) && !empty($_POST)) {
   if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($password2)) {
     $error = "Please fill in all information";
   } else {
+    // Length validation
+    if(strlen($first_name) > 20 || strlen($first_name) > 20){
+      echo "Name values too long, please try again";
+      exit();
+    }
+    if(strlen($email) > 20 || strlen($password) > 30){
+      echo "Email or password values too long, please try again";
+      exit();
+    }
+    // Check if email already exists in database
     if (checkEmailExists($pdo, $email)) {
       $error = "Email already exists";
     } else {
@@ -75,23 +85,23 @@ if (isset($_POST) && !empty($_POST)) {
   <form class="form-signin" method="post" action="register.php">
     <h1 class="h3 mb-3 font-weight-normal text-center">Register</h1>
     <div class="form-group">
-      <label for="first_name">First name</label>
+      <label for="first_name">First name (max: 20 characters)</label>
       <input type="text" class="form-control" id="first_name" name="first_name">
     </div>
     <div class="form-group">
-      <label for="last_name">Last name</label>
+      <label for="last_name">Last name (max: 20 characters)</label>
       <input type="text" class="form-control" id="last_name" name="last_name">
     </div>
     <div class="form-group">
-      <label for="email">Email address</label>
+      <label for="email">Email address (max: 30 characters)</label>
       <input type="email" class="form-control" id="email" name="email">
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Password (max: 30 characters)</label>
       <input type="password" class="form-control" id="password" name="password">
     </div>
     <div class="form-group">
-      <label for="password2">Repeat Password</label>
+      <label for="password2">Repeat Password (max: 30 characters)</label>
       <input type="password" class="form-control" id="password2" name="password2">
     </div>
     <button type="submit" class="">Register</button>
