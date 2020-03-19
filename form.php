@@ -186,7 +186,9 @@ if(!isset($_SESSION['user_id'])){
         exit();
       }
     ?>
-    <button type="submit" class="btn btn-primary">Next Step</button>
+    <button type="submit" class="">Next Step</button>
+    </br>
+    </br>
   </form>
 
 </div>

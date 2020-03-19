@@ -23,9 +23,6 @@ function checkEmailExists($pdo, $email)
   }
 }
 
-
-
-
 $error = null;
 
 // Checks if the form has been submitted

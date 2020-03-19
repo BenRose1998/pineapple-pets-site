@@ -51,6 +51,7 @@ if (isset($_POST) && !empty($_POST)) {
     uploadImage($_FILES['file']);
     // Trims white space and stores user inputs as variables to be used later
     $name = trim($_POST['name']);
+    $gender = trim($_POST['gender']);
     $age = trim($_POST['age']);
     $type = trim($_POST['type']);
     $breed = trim($_POST['breed']);
@@ -63,11 +64,11 @@ if (isset($_POST) && !empty($_POST)) {
       $created = date('Y-m-d H:i:s');
       // Query
       // Pet data is inserted into the database
-      $sql = 'INSERT INTO pet (pet_type_id, pet_breed_id, pet_name, pet_age, pet_image, pet_description) VALUES (:pet_type_id, :pet_breed_id, :pet_name, :pet_age, :pet_image, :pet_description)';
+      $sql = 'INSERT INTO pet (pet_type_id, pet_breed_id, pet_name, pet_age, pet_gender, pet_image, pet_description) VALUES (:pet_type_id, :pet_breed_id, :pet_name, :pet_age, :pet_gender, :pet_image, :pet_description)';
 
       // Prepare and execute statement
       $stmt = $pdo->prepare($sql);
-      $stmt->execute(['pet_type_id' => $type, 'pet_breed_id' => $breed, 'pet_name' => $name, 'pet_age' => $age, 'pet_image' => $pet_image, 'pet_description' => $description]);
+      $stmt->execute(['pet_type_id' => $type, 'pet_breed_id' => $breed, 'pet_name' => $name, 'pet_age' => $age, 'pet_gender' => $gender, 'pet_image' => $pet_image, 'pet_description' => $description]);
 
       // Redirects user to login page
       redirect('pets.php');
@@ -86,6 +87,13 @@ if (isset($_POST) && !empty($_POST)) {
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="breed">Gender</label>
+    <select class="form-control" id="gender" name="gender">
+      <option value="0">Male</option>
+      <option value="1">Female</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="age">Age (years)</label>

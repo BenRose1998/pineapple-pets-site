@@ -72,7 +72,7 @@ include('includes/header.php');
           <a href='view_pet.php?pet=<?php echo $pet->pet_id ?>' class='no-underline'>
             <h2><?php echo $pet->pet_name ?></h2>
           </a>
-          <h3><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 1 ? 'Male' : 'Female ') ?> |
+          <h3><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 0 ? 'Male' : 'Female ') ?> |
             <?php echo $pet->pet_age ?> years old </h3>
           <h4><?php echo $pet->pet_description ?></h4>
         </div>

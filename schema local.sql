@@ -1,17 +1,19 @@
 DROP DATABASE IF EXISTS pets;
 CREATE DATABASE IF NOT EXISTS pets;
 USE pets;
+
+-- Tables
 CREATE TABLE IF NOT EXISTS user(
   user_id INT(64) PRIMARY KEY AUTO_INCREMENT,
   user_first_name VARCHAR(20) NOT NULL,
   user_last_name VARCHAR(20) NOT NULL,
   user_email VARCHAR(40) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  user_created DATETIME
+  user_created DATETIME NOT NULL
 );
 CREATE TABLE IF NOT EXISTS staff(
   staff_id INT(64) PRIMARY KEY AUTO_INCREMENT,
-  user_id INT(64),
+  user_id INT(64) NOT NULL,
   staff_email_notification BOOLEAN DEFAULT false,
   CONSTRAINT FK_staff_user_id FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
@@ -25,8 +27,8 @@ CREATE TABLE IF NOT EXISTS pet_breed(
 );
 CREATE TABLE IF NOT EXISTS pet(
   pet_id INT(64) PRIMARY KEY AUTO_INCREMENT,
-  pet_type_id INT(64),
-  pet_breed_id INT(64),
+  pet_type_id INT(64) NOT NULL,
+  pet_breed_id INT(64) NOT NULL,
   pet_name VARCHAR(20) NOT NULL,
   pet_age INT(2) NOT NULL,
   pet_gender INT(1) NOT NULL,
@@ -34,16 +36,18 @@ CREATE TABLE IF NOT EXISTS pet(
   pet_description TEXT(1000),
   pet_active BOOLEAN DEFAULT true,
   CONSTRAINT FK_pet_pet_type_id FOREIGN KEY (pet_type_id) REFERENCES pet_type(pet_type_id),
-  CONSTRAINT FK_pet_pet_breed_id FOREIGN KEY (pet_breed_id) REFERENCES pet_breed(pet_breed_id)
+  CONSTRAINT FK_pet_pet_breed_id FOREIGN KEY (pet_breed_id) REFERENCES pet_breed(pet_breed_id),
+  CONSTRAINT check_pet_gender CHECK(pet_gender IN (0, 1))
 );
 CREATE TABLE IF NOT EXISTS form(
   form_id INT(64) PRIMARY KEY AUTO_INCREMENT,
-  user_id INT(64),
-  pet_id INT(64),
-  form_status VARCHAR(64) DEFAULT 'Initiated',
-  form_created DATETIME,
+  user_id INT(64) NOT NULL,
+  pet_id INT(64) NOT NULL,
+  form_status VARCHAR(64) DEFAULT "Initiated",
+  form_created DATETIME NOT NULL,
   CONSTRAINT FK_form_user_id FOREIGN KEY (user_id) REFERENCES user(user_id),
-  CONSTRAINT FK_form_pet_id FOREIGN KEY (pet_id) REFERENCES pet(pet_id)
+  CONSTRAINT FK_form_pet_id FOREIGN KEY (pet_id) REFERENCES pet(pet_id),
+  CONSTRAINT check_form_status CHECK(form_status IN ("Initiated", "Approved", "Rejected", "Finalised"))
 );
 CREATE TABLE IF NOT EXISTS category(
   category_id INT(64) PRIMARY KEY AUTO_INCREMENT,
@@ -72,6 +76,11 @@ CREATE TABLE IF NOT EXISTS answer(
   CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id),
   CONSTRAINT FK_answer_possible_answer_id FOREIGN KEY (possible_answer_id) REFERENCES possible_answer(possible_answer_id)
 );
+
+-- Indexes
+CREATE INDEX index_user ON user(user_email);
+CREATE INDEX index_form ON form(form_status);
+
 INSERT INTO user
 VALUES
   (
@@ -122,7 +131,7 @@ VALUES
     1,
     'Jack',
     4,
-    1,
+    0,
     'nancy.jpg',
     'Test description',
     true
@@ -135,7 +144,7 @@ VALUES
     1,
     'Charlie',
     6,
-    1,
+    0,
     'puppy.jpg',
     'Test description',
     true

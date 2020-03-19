@@ -6,10 +6,18 @@
   text-decoration: none !important;
 }
 
+select, textarea, input{
+  border-radius: 0px !important;
+}
+
 /* Nav bar */
 .navbar-custom {
   background-color: #D62828;
 
+}
+
+.nav-link.active{
+  font-weight: bold;
 }
 
 .navbar-brand,
@@ -20,6 +28,8 @@
 /* Nav pills */
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
   background-color: #D62828;
+  position: relative;
+  border-radius: 0px !important;
 }
 
 .nav-pills .nav-link, .nav-pills .show > .nav-link{
@@ -201,6 +211,10 @@ p {
 /* Pets */
 #search {
   padding-left: 15px;
+}
+
+.card{
+  border-radius: 0px !important;
 }
 
 button#go {
