@@ -87,6 +87,12 @@ if(!isset($_SESSION['user_id'])){
             if($answer_type == 'input' || $answer_type == 'text'){
               // Trims white space and stores user input as variable
               $answer_value = trim(reset($answer));
+              // Check if answer value length exceeds limit
+              if(strlen($answer_value) > 1000){
+                // Print error & exit script
+                echo 'Answer length exceeded 1000 characters, please try again';
+                exit();
+              }
               // Set possible answer value to null
               $possible_answer = null;
             }else if($answer_type == 'dropdown'){
@@ -181,8 +187,7 @@ if(!isset($_SESSION['user_id'])){
           }
         }
       }else{
-        echo '<h3>Form Completed</h3>';
-        echo '<a href="index.php"><button type="button">Go Home</button></a>';
+        redirect('dashboard.php');
         exit();
       }
     ?>

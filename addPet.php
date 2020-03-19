@@ -48,6 +48,13 @@ if (isset($_POST) && !empty($_POST)) {
   if (!isset($_FILES['file'])) {
     $error = "Please upload file";
   } else {
+    // Check if description length exceeds limit
+    if(strlen($_POST['description']) > 1000){
+      // Print error & exit script
+      echo 'Description length exceeded 1000 characters, please try again';
+      exit();
+    }
+
     uploadImage($_FILES['file']);
     // Trims white space and stores user inputs as variables to be used later
     $name = trim($_POST['name']);

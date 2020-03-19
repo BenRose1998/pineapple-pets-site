@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS answer(
   answer_id INT(64) PRIMARY KEY AUTO_INCREMENT,
   form_id INT(64) NOT NULL,
   question_id INT(64) NOT NULL,
-  possible_answer_id INT(64),
+  possible_answer_id INT(64) NULL,
   answer_value TEXT(1000),
   CONSTRAINT FK_answer_form_id FOREIGN KEY (form_id) REFERENCES form(form_id),
   CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id),

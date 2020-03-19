@@ -182,7 +182,7 @@
 
           // Display question
           echo '<div class="form-group col-md-9 question-text">';
-          echo '<label>Question Title: </label>';
+          echo '<label>Question Title: (max: 200 characters)</label>';
           echo '<input type="hidden" name="questions[' . $question->question_id . '][question_id]" value="'. $question->question_id .'">';
           echo '<input type="hidden" name="questions[' . $question->question_id . '][category_id]" value="'. $question->category_id .'">';
           echo '<input type="text" class="form-control" name="questions[' . $question->question_id . '][text]" value="' . $question->question_text . '">';
@@ -234,12 +234,19 @@
   }
 
   function updateForm($pdo){
-    print_r($_POST['answers']);
+    // print_r($_POST['answers']);
 
     if (isset($_POST) && !empty($_POST)) {
 
       if($_POST['questions']){
         foreach($_POST['questions'] as $question){
+          // Check if question length exceeds limit
+          if(strlen($question['text']) > 200){
+            // Print error & exit script
+            echo 'Question length exceeded 200 characters, please try again';
+            exit();
+          }
+
           if(isset($question['question_id'])){
             $question_id = $question['question_id'];
           }else{
