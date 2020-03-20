@@ -9,15 +9,21 @@ if (!isset($_SESSION['staff'])) {
 
 function uploadImage($file)
 {
+  // Set directory
   $dir = "images/";
-  $file_name = $dir . basename($file['name']);
+  // Find file extension by seperating filename on the .
+  $extension = explode(".", $_FILES["file"]["name"]);
+  // Creates file name (images/user_id + timestamp + .extension)
+  $file_name = $_SESSION['user_id'] . microtime() . '.' . $extension[1];
+  // Add directory to file name
+  $file_dir = $dir . $file_name;
+  // Default whether file should be uploaded to true
   $upload = true;
-  $imageFileType = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
   // Check if file is an image
   if (!getimagesize($file['tmp_name'])) {
     echo "File is not an image.</br>";
-    $uploadOk = false;
+    $upload = false;
   }
 
   // Check if file already exists
@@ -26,7 +32,7 @@ function uploadImage($file)
     $upload = false;
   }
 
-  // Check file size
+  // Check if file size is greated than 20mb
   if ($file['size'] > 20971520) {
     echo "File is too big.</br>";
     $upload = false;
@@ -35,8 +41,9 @@ function uploadImage($file)
   if (!$upload) {
     echo 'File could not be uploaded.</br>';
   } else {
-    if (move_uploaded_file($file['tmp_name'], $file_name)) {
+    if (move_uploaded_file($file['tmp_name'], $file_dir)) {
       echo 'File uploaded.</br>';
+      return $file_name;
     } else {
       echo 'Error uploading file.</br>';
     }
@@ -55,7 +62,9 @@ if (isset($_POST) && !empty($_POST)) {
       exit();
     }
 
-    uploadImage($_FILES['file']);
+    // Upload the image file & recieve the image file name
+    $file_name = uploadImage($_FILES['file']);
+
     // Trims white space and stores user inputs as variables to be used later
     $name = trim($_POST['name']);
     $gender = trim($_POST['gender']);
@@ -63,7 +72,8 @@ if (isset($_POST) && !empty($_POST)) {
     $type = trim($_POST['type']);
     $breed = trim($_POST['breed']);
     $description = trim($_POST['description']);
-    $pet_image = $_FILES['file']['name'];
+    $pet_image =  $file_name;
+
     // Checks if inputs are empty, if so sends an error
     if (empty($name) || empty($age) || empty($type) || empty($breed) || empty($description)) {
       $error = "Please fill in all information";
@@ -78,16 +88,15 @@ if (isset($_POST) && !empty($_POST)) {
       $stmt->execute(['pet_type_id' => $type, 'pet_breed_id' => $breed, 'pet_name' => $name, 'pet_age' => $age, 'pet_gender' => $gender, 'pet_image' => $pet_image, 'pet_description' => $description]);
 
       // Redirects user to login page
-      redirect('pets.php');
+      // redirect('pets.php');
     }
   }
 }
-
 ?>
 
 <form method="post" action="admin_area.php?view=addPet" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="file">Select image to upload (must be under 20Mb & must have a unique name):</label>
+    <label for="file">Select image to upload (must be under 20Mb):</label>
     </br>
     <input type="file" class="" name="file" id="file">
   </div>
