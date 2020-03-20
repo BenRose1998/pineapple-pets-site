@@ -4,9 +4,11 @@ $header = "Home Page";
 // Added header to top of page
 include('includes/header.php');
 
+// Checks if inputted email address already exists in database
 function checkEmailExists($pdo, $email)
 {
   // Query
+  // Select user data for the specified email
   $sql = 'SELECT *
           FROM user
           WHERE user_email = ?';
@@ -16,6 +18,7 @@ function checkEmailExists($pdo, $email)
   $stmt->execute([$email]);
   $accounts = $stmt->fetchAll();
 
+  // If any accounts were returned return true
   if (count($accounts) === 0) {
     return false;
   } else {
@@ -23,6 +26,7 @@ function checkEmailExists($pdo, $email)
   }
 }
 
+// Set error to null
 $error = null;
 
 // Checks if the form has been submitted
@@ -37,16 +41,17 @@ if (isset($_POST) && !empty($_POST)) {
   if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($password2)) {
     $error = "Please fill in all information";
   } else {
-    // Length validation
-    if(strlen($first_name) > 20 || strlen($first_name) > 20){
+    // Checks if first name or last name lengths are greater than 20 characters, if so sends a message and exits the script
+    if(strlen($first_name) > 20 || strlen($last_name) > 20){
       echo "Name values too long, please try again";
       exit();
     }
+    // Checks if email or password lengths are greater than 30 characters, if so sends a message and exits the script
     if(strlen($email) > 20 || strlen($password) > 30){
       echo "Email or password values too long, please try again";
       exit();
     }
-    // Check if email already exists in database
+    // Check if email already exists in database and sets error
     if (checkEmailExists($pdo, $email)) {
       $error = "Email already exists";
     } else {
@@ -57,7 +62,9 @@ if (isset($_POST) && !empty($_POST)) {
         // If inputs aren't empty and passwords match the user's data is inserted into the database
         // Encrypts password
         $password = password_hash($password, PASSWORD_DEFAULT);
+        // Store current date and time in SQL format
         $created = date('Y-m-d H:i:s');
+        
         // Query
         // User's data is inserted into the database
         $sql = 'INSERT INTO user (user_first_name, user_last_name, user_email, user_password, user_created) VALUES (:first_name, :last_name, :email, :password, :created)';
@@ -107,7 +114,6 @@ if (isset($_POST) && !empty($_POST)) {
     <button type="submit" class="">Register</button>
   </form>
 </div>
-
 
 <?php
 // Added footer to bottom of page

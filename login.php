@@ -4,21 +4,22 @@ $header = "Home Page";
 // Added header to top of page
 include('includes/header.php');
 
+// Set error to null
 $error = null;
 
-// Checks if the form has been submitted
+// Check if the form has been submitted
 if (isset($_POST) && !empty($_POST)) {
-  // Stores user inputs as variables to be used later
+  // Store user inputs as variables to be used later
   $email = $_POST['email'];
   $password = $_POST['password'];
-  // Checks if inputs are empty, if so sends an error
+  // Check if inputs are empty, if so send an error
   if (empty($email) || empty($password)) {
     $error = "Please fill in all information";
   } else {
-    // // If inputs aren't empty the user's data is pulled from the database
+    // If inputs aren't empty the user's data is pulled from the database
 
     // Query
-    // User's data is pulled from user table and their job title from employee table if they are in it
+    // User's data is pulled from user table and their staff id from employee table if they are in it (LEFT JOIN used)
     $sql = 'SELECT user.*, staff.staff_id
             FROM user
             LEFT JOIN staff ON user.user_id = staff.user_id
@@ -39,10 +40,14 @@ if (isset($_POST) && !empty($_POST)) {
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['first_name'] = $user->user_first_name;
         $_SESSION['email'] = $email;
+        // If user is a staff member (staff id was left-joined on to data)
         if ($user->staff_id) {
+          // Staff stored in session
           $_SESSION['staff'] = true;
+          // User is redirected to the admin area page
           redirect('admin_area.php?view=forms');
         } else {
+          // If not staff, user is redirected to the home page
           redirect('index.php');
         }
       } else {

@@ -6,6 +6,7 @@ $header = "Form";
 include_once('includes/header.php');
 include_once('includes/functions.php');
 
+// Returns answers of a specified question
 function getAnswers($pdo, $question_id){
   // Query
   // Get answers for a specific question
@@ -18,16 +19,21 @@ function getAnswers($pdo, $question_id){
   $stmt->execute([$question_id]);
   // Saves result in object
   $answers = $stmt->fetchAll();
+
+  // Return the data from the query
   return $answers;
 }
 
+// Set error variable to null
 $error = null;
 
+// If user is not logged in
 if(!isset($_SESSION['user_id'])){
+  // Redirect them to login page and exit script
   redirect('login.php');
   exit();
 }else{
-  // Check if form's user id matches user
+  // Check if form's user id matches user trying to access it
   checkFormUser($pdo);
 
   // Check if category specified, else set it to 1
@@ -37,9 +43,8 @@ if(!isset($_SESSION['user_id'])){
     $category = 1;
   }
 
-  // Get questions for form by category
   // Query
-  // Select the email notification value for this user
+  // Get questions for form by category
   $sql = 'SELECT *
   FROM question
   INNER JOIN category ON question.category_id = category.category_id
@@ -65,17 +70,19 @@ if(!isset($_SESSION['user_id'])){
         // Set default number of answer to 1
         $no_of_answers = 1;
 
-        // Check if checkbox values have been sent (array of answers)
+        // Check if checkbox values have been sent (an array of answers)
         if(array_key_exists('check', $answer)){
           // Set number of answers to length of array sent
           $no_of_answers = count($answer['check']);
         }else{
           // Check if answer value is empty (only if it's not a checkbox question)
           if(trim(reset($answer)) == ''){
+            // Set error
             $error = 'Information missing';
           }
         }
         
+        // If an error has not been set
         if(!$error){
           // Loop through no_of_answers
           for($i = 0; $i < $no_of_answers; $i++){
@@ -122,7 +129,6 @@ if(!isset($_SESSION['user_id'])){
       redirect('form.php?id=' . $form_id . '&c=' . ($_GET['c'] + 1));
     }
   }
-    
   }
 
 ?>
@@ -143,43 +149,52 @@ if(!isset($_SESSION['user_id'])){
         echo '<h3>' . $questions[0]->category_name . '</h3>';
         echo '<strong>Please fill in all information</strong>';
         foreach($questions as $question){
-          // INPUT
+          // INPUT - Create an input element
           if($question->question_type == 'input'){
             echo '<div class="form-group">';
             echo '<label>' . $question->question_text . '</label>';
+            // Create an array within POST, store the question type
             echo '<input type="text" class="form-control" name="' . $question->question_id . '[' . $question->question_type . ']">';
             echo '</div>';
-          // DROPDOWN
+          // DROPDOWN - Create an select element
           }else if($question->question_type == 'dropdown'){
             echo '<div class="form-group">';
             echo '<label>' . $question->question_text . '</label>';
+            // Create an array within POST, store the question type
             echo '<select class="form-control" name="' . $question->question_id . '[' . $question->question_type . ']">';
+            // Call get answers function - all possible answers for this question are returned
             $answers = getAnswers($pdo, $question->question_id);
             if($answers){
+              // Loop through all answers and create option elements for them
               foreach($answers as $answer){
+                // Store answer's id in value attribute
                 echo '<option value="' . $answer->possible_answer_id . '">' . $answer->possible_answer_value . '</option>';
               }
             }
             echo '</select>';
             echo '</div>';
-          // CHECK BOXES
+          // CHECK BOXES - Create an checkbox input element
           }else if($question->question_type == 'check'){
             echo '<div class="form-group">';
             echo '<label>' . $question->question_text . '</label>';
+            // Call get answers function - all possible answers for this question are returned
             $answers = getAnswers($pdo, $question->question_id);
             if($answers){
+              // Loop through all answers and create option elements for them
               foreach($answers as $answer){
                 echo '<div class="form-check">';
+                // Create an array within POST, store the question type and possible answer id
                 echo '<input class="form-check-input" type="checkbox" name="' . $question->question_id . '[' . $question->question_type . '][' . $answer->possible_answer_id . ']" value="' . $answer->possible_answer_id . '">';
                 echo '<label class="form-check-label">' . $answer->possible_answer_value . '</label>';
                 echo '</div>';
               }
             }
             echo '</div>';
-          // TEXT AREA
+          // TEXT AREA - Create an textarea element
           }else if($question->question_type == 'text'){
             echo '<div class="form-group">';
             echo '<label>' . $question->question_text . '</label>';
+            // Create an array within POST, store the question type
             echo '<textarea class="form-control" cols="30" rows="10" name="' . $question->question_id . '[' . $question->question_type . ']"></textarea>';
             echo '</div>';
           }

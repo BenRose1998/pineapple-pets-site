@@ -17,14 +17,15 @@ $error = null;
     echo '<h3 class="error">' . $error . '</h3>';
   }
 
+// If pet id has been sent
 if(isset($_GET['pet'])){
   // Query
-  // Pulls questions & appends data from relevant tables
+  // Pulls pet information from pet table and pet_breed table for the specified pet
   $sql = "SELECT *
-  FROM pet
-  INNER JOIN pet_breed ON pet.pet_breed_id = pet_breed.pet_breed_id
-  WHERE pet.pet_id = ?
-  LIMIT 1";
+          FROM pet
+          INNER JOIN pet_breed ON pet.pet_breed_id = pet_breed.pet_breed_id
+          WHERE pet.pet_id = ?
+          LIMIT 1";
 
   // Prepare and execute statement
   $stmt = $pdo->prepare($sql);
@@ -32,6 +33,7 @@ if(isset($_GET['pet'])){
   // Saves all results in object
   $pet = $stmt->fetch();
 
+  // If a pet was found under specified id - data is rendered as HTML elements on page
   if($pet){
     ?>
 
@@ -49,18 +51,17 @@ if(isset($_GET['pet'])){
 
   <?php
   }else{
+    // If not pet returned, error is set
     $error = 'Pet not found';
   }
 
 }else{
+  // If not pet id was sent, error is set
   $error = 'No pet selected';
 }
 
 ?>
-
-
 </div>
-
 
 <?php
 // Added footer to bottom of page

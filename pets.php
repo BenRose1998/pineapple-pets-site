@@ -6,8 +6,9 @@ include('includes/header.php');
 ?>
 
 <div class="container" id="main">
-
   <?php
+  // Query
+  // Pulls all pet type values from the pet type table
   $sql = 'SELECT pet_type_name
             FROM pet_type';
 
@@ -16,8 +17,6 @@ include('includes/header.php');
   $stmt->execute();
   // Saves all results in object
   $types = $stmt->fetchAll();
-
-  $array = (array) $types;
   ?>
   <form method="get" action="pets.php">
     <div class="form-group">
@@ -26,7 +25,9 @@ include('includes/header.php');
         <select class="col-8 col-md-2 form-control" id="view" name="view">
           <option value="%">All</option>
           <?php
+          // Loop through all types
           foreach ($types as $type) {
+            // Create an option element for each pet type (e.g. Dog)
             echo '<option value="' . $type->pet_type_name . '">' . $type->pet_type_name . '</option>';
           }
           ?>
@@ -38,14 +39,17 @@ include('includes/header.php');
   </form>
 
   <?php
+  // If a view has been requested
   if (isset($_GET['view'])) {
+    // Set sort to the requested view
     $sort = $_GET['view'];
   } else {
+    // Else set it to wildcard (Pets of any type will be displayed)
     $sort = '%';
   }
 
   // Query
-  // Pulls records from pet table and appends data from relevant tables
+  // Pulls records from pet table and appends data from relevant tables for only active pets
   $sql = 'SELECT *
     FROM pet
     INNER JOIN pet_type ON pet.pet_type_id = pet_type.pet_type_id
@@ -60,8 +64,10 @@ include('includes/header.php');
   // Saves all results in object
   $pets = $stmt->fetchAll();
 
+  // If any pets were returned from query
   if ($pets) {
     echo '<div class="pets">';
+    // Loop through all pets - create a card composed of each pets information
     foreach ($pets as $pet) {
   ?>
   <figure class="pet">
@@ -83,12 +89,8 @@ include('includes/header.php');
   <?php
     }
   }
-
   echo '</div>';
-
   ?>
-
-
 </div>
 
 

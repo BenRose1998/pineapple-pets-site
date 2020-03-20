@@ -28,7 +28,6 @@ include('includes/header.php');
       <p>pineapplepetsanctuary@gmail.com</p>
     </figure>
   </div>
-
 </div>
 
 
