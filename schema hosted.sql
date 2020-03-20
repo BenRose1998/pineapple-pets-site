@@ -1,4 +1,3 @@
-
 -- Tables
 CREATE TABLE IF NOT EXISTS user(
   user_id INT(64) PRIMARY KEY AUTO_INCREMENT,
@@ -44,9 +43,7 @@ CREATE TABLE IF NOT EXISTS form(
   form_created DATETIME NOT NULL,
   CONSTRAINT FK_form_user_id FOREIGN KEY (user_id) REFERENCES user(user_id),
   CONSTRAINT FK_form_pet_id FOREIGN KEY (pet_id) REFERENCES pet(pet_id),
-  CONSTRAINT check_form_status CHECK(
-    form_status IN ("Initiated", "Approved", "Rejected", "Finalised")
-  )
+  CONSTRAINT check_form_status CHECK(form_status IN ("Initiated", "Approved", "Rejected", "Finalised"))
 );
 CREATE TABLE IF NOT EXISTS category(
   category_id INT(64) PRIMARY KEY AUTO_INCREMENT,
@@ -57,13 +54,13 @@ CREATE TABLE IF NOT EXISTS question(
   category_id INT(64) NOT NULL,
   question_text TEXT(200) NOT NULL,
   question_type VARCHAR(10) NOT NULL,
-  CONSTRAINT FK_question_category_id FOREIGN KEY (category_id) REFERENCES category(category_id)
+  CONSTRAINT FK_question_category_id FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS possible_answer(
   possible_answer_id INT(64) PRIMARY KEY AUTO_INCREMENT,
   question_id INT(64) NOT NULL,
   possible_answer_value VARCHAR(100) NOT NULL,
-  CONSTRAINT FK_possible_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id)
+  CONSTRAINT FK_possible_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS answer(
   answer_id INT(64) PRIMARY KEY AUTO_INCREMENT,
@@ -75,9 +72,11 @@ CREATE TABLE IF NOT EXISTS answer(
   CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id),
   CONSTRAINT FK_answer_possible_answer_id FOREIGN KEY (possible_answer_id) REFERENCES possible_answer(possible_answer_id)
 );
+
 -- Indexes
 CREATE INDEX index_user ON user(user_email);
 CREATE INDEX index_form ON form(form_status);
+
 INSERT INTO user
 VALUES
   (
