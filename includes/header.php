@@ -52,22 +52,24 @@ function redirect($url){ ?>
       </ul>
       <ul class="navbar-nav navbar-right">
         <?php
+          // If user is logged in display a 'My Account' link on nav bar
           if(isset($_SESSION['user_id'])){
             echo '<li class="nav-item">';
             echo  '<a class="nav-link nav-white" href="dashboard.php">My Account</a>';
             echo '</li>';
-
+            // If user is a staff member display an 'Admin Area' link on nav bar
             if(isset($_SESSION['staff'])){
               echo '<li class="nav-item">';
               echo  '<a class="nav-link nav-white" href="admin_area.php?view=forms">Admin Area</a>';
               echo '</li>';
             }
-
+            // If user is logged in display a 'Logout' link on nav bar
             echo '<li class="nav-item">';
             echo  '<a class="nav-link nav-white" href="logout.php">Logout (' . $_SESSION['first_name'] . ')</a>';
             echo '</li>';
 
           } else{
+            // If user is not logged in display a 'Login/Register' link on nav bar
             echo '<li class="nav-item">';
             echo  '<a class="nav-link nav-white" href="login.php">Login/Register</a>';
             echo '</li>';
