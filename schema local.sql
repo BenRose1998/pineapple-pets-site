@@ -58,13 +58,13 @@ CREATE TABLE IF NOT EXISTS question(
   category_id INT(64) NOT NULL,
   question_text TEXT(200) NOT NULL,
   question_type VARCHAR(10) NOT NULL,
-  CONSTRAINT FK_question_category_id FOREIGN KEY (category_id) REFERENCES category(category_id)
+  CONSTRAINT FK_question_category_id FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS possible_answer(
   possible_answer_id INT(64) PRIMARY KEY AUTO_INCREMENT,
   question_id INT(64) NOT NULL,
   possible_answer_value VARCHAR(100) NOT NULL,
-  CONSTRAINT FK_possible_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id)
+  CONSTRAINT FK_possible_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS answer(
   answer_id INT(64) PRIMARY KEY AUTO_INCREMENT,

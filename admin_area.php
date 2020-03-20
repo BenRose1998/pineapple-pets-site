@@ -54,6 +54,9 @@ include_once('includes/admin_functions.php');
               }
               break;
             case 'editForm':
+              if(isset($_GET['id'])){
+                deleteQuestion($pdo, $_GET['id']);
+              }
               if(isset($_GET['submit'])){
                 updateForm($pdo);
               }

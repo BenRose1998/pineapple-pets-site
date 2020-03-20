@@ -158,8 +158,16 @@
       foreach($questions as $question){
         // Check if category id is different from the previous question's category
         if($question->category_id != $current_category_id){
-          // If so display a category heading
+          // If not the first category
+          if($current_category_id != 0){
+            // Display an add question button
+            echo '</br>';
+            echo '<a href=""><button type="button" class="btn-block add-question" id="' . $current_category_id . '">Add New Question to this category</button></a>';
+            echo '</br>';
+          }
+          // Set current category id to the new category id
           $current_category_id = $question->category_id;
+          // Display a category heading
           echo '<h4 class="$question->category_id">'. $question->category_name . '</h4>';
         }
         ?>
@@ -212,8 +220,8 @@
                     echo '<label class="option-input">Option: </label>';
                     echo '<input type="hidden" name="answers[' . $answer->possible_answer_id . '][question_id]" value="' . $question->question_id . '">';
                     echo '<input type="hidden" name="answers[' . $answer->possible_answer_id . '][possible_answer_id]" value="' . $answer->possible_answer_id . '">';
-                    echo '<input type="text" class="form-control col-md-9 option-input" name="answers[' . $answer->possible_answer_id . '][answer]" value="' . $answer->possible_answer_value . '">';
-                    echo '<a href=""><button type="button" class="btn-block col-md-1 add-option">X</button></a>';
+                    echo '<input type="text" class="form-control col-md-12 option-input" name="answers[' . $answer->possible_answer_id . '][answer]" value="' . $answer->possible_answer_value . '">';
+                    // echo '<a href=""><button type="button" class="btn-block col-md-1 delete-option">X</button></a>';
                   echo '</div>';
               }
               echo '</div>';
@@ -223,11 +231,16 @@
               echo '<a href=""><button type="button" class="btn-block col-md-9 add-option">Add Option</button></a>';
             }
           }
-        echo '<a href=""><button type="button" class="btn-block add-question">Add New Question Here</button></a>';
+          echo '<a href=""><button type="button" class="btn-block delete-question">Delete Question</button></a>';
+
         echo '</div>';
       }
+      // Display an add question button
       echo '</br>';
-      echo '<button type="submit" class="btn-block">Submit</button>';
+      echo '<a href=""><button type="button" class="btn-block add-question" id="' . $current_category_id . '">Add New Question to this category</button></a>';
+      echo '</br>';
+      echo '</br>';
+      echo '<button type="submit" class="btn-block">Save</button>';
       echo '</br>';
       echo '</form>';
       echo '</div>';
@@ -235,7 +248,7 @@
   }
 
   function updateForm($pdo){
-    // print_r($_POST['answers']);
+    // print_r($_POST);
 
     if (isset($_POST) && !empty($_POST)) {
 
@@ -290,6 +303,17 @@
       }
       redirect('admin_area.php?view=editForm');
     }
+  }
+
+  function deleteQuestion($pdo, $id){
+    // Query
+    // Update form status
+    $sql = 'DELETE FROM question WHERE question_id = ?';
+
+    // Prepare and execute statement
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+    redirect('admin_area.php?view=editForm');
   }
 
   function setFormStatus($pdo, $id, $status){
