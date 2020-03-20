@@ -18,19 +18,19 @@
     $forms = $stmt->fetchAll();
 
     ?>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>Name</th>
-          <th>Pet</th>
-          <th>Pet Age</th>
-          <th>Form Status</th>
-          <th>Form Created</th>
-          <th>View Form</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Pet</th>
+      <th>Pet Age</th>
+      <th>Form Status</th>
+      <th>Form Created</th>
+      <th>View Form</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
       // Checks if there is at least 1 result from database query
       if($forms) {
         // For each loop to display all filmss
@@ -151,7 +151,7 @@
 
     <form method="post" action="admin_area.php?view=editForm&submit">
 
-    <?php
+      <?php
     if($questions){
       // Store current category id to compare
       $current_category_id = 0;
@@ -163,12 +163,13 @@
           echo '<h4 class="$question->category_id">'. $question->category_name . '</h4>';
         }
         ?>
-        <hr>
-        <div class="question" id="<?php echo $question->question_id ?>">
+      <hr>
+      <div class="question" id="<?php echo $question->question_id ?>">
         <div class="row">
           <div class="form-group col-md-3 input-type">
             <label>Input type: </label>
-            <select class="form-control" name="questions[<?php echo $question->question_id ?>][input_type]" value="check">
+            <select class="form-control" name="questions[<?php echo $question->question_id ?>][input_type]"
+              value="check">
               <?php
               echo '<option value="input" ' . ($question->question_type == "input" ? "selected" : '') . '>Text</option>';
               echo '<option value="dropdown" ' . ($question->question_type == "dropdown" ? "selected" : '') . '>Dropdown</option>';
@@ -319,18 +320,18 @@
     $users = $stmt->fetchAll();
 
     ?>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>Account Type</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Account Created</th>
-          <th>Make Staff</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>Account Type</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Account Created</th>
+                <th>Make Staff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
       // Checks if there is at least 1 result from database query
       if($users) {
         // For each loop to display all filmss
@@ -382,19 +383,19 @@
     $pets = $stmt->fetchAll();
 
     ?>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>Pet Name</th>
-          <th>Type</th>
-          <th>Breed</th>
-          <th>Age</th>
-          <th>Description</th>
-          <th>Display</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Pet Name</th>
+                    <th>Type</th>
+                    <th>Breed</th>
+                    <th>Age</th>
+                    <th>Description</th>
+                    <th>Display</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
       // Checks if there is at least 1 result from database query
       if($pets) {
         // For each loop to display all filmss
@@ -452,12 +453,14 @@
     // Query
     // Toggles the staff_email_notification value
     $sql = 'UPDATE staff 
-    SET staff_email_notification = 1 - staff_email_notification
-    WHERE staff_id = ?';
+    SET staff_email_notification = !staff_email_notification
+    WHERE user_id = ?';
 
     // Prepare and execute statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['user_id']]);
+
+    redirect("admin_area.php?view=settings");
   }
 
 ?>
