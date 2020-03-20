@@ -53,14 +53,12 @@ if(!isset($_SESSION['user_id'])){
 
   // Checks if the form has been submitted
   if (isset($_POST) && !empty($_POST)) {
-    // print_r($_POST);
-    
+  
     // Store form id in variable
     $form_id = $_POST['form_id'];
 
     // Remove first element of array (form_id)
     unset($_POST['form_id']);
-
 
       // Loop through posted answers
       foreach($_POST as $key => $answer){
@@ -133,9 +131,9 @@ if(!isset($_SESSION['user_id'])){
 
   <!-- If an error is sent it is displayed -->
   <?php if($error != null): ?>
-    <h3 class='error'><?php echo $error; ?></h3>
+  <h3 class='error'><?php echo $error; ?></h3>
   <?php endif; ?>
-  
+
   <form method="post" action="form.php?id=<?php echo $_GET['id'] . '&c=' . $category ?>">
     <input type="hidden" name="form_id" value="<?php echo $_GET['id'] ?>">
 
@@ -187,7 +185,12 @@ if(!isset($_SESSION['user_id'])){
           }
         }
       }else{
+        // If no questions (all form categories have been completed)
+        // Email all staff who have email notifications enabled - notifying them that an adoption form has been submitted
+        sendEmail($pdo);
+        // Redirect the user to their dashboard
         redirect('dashboard.php');
+        // Exit script
         exit();
       }
     ?>

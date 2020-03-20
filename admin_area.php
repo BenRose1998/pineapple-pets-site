@@ -86,7 +86,6 @@ include_once('includes/admin_functions.php');
                 toggleEmail($pdo);
               }
               showEmailToggle($pdo);
-
               break;
             default:
               displayForms($pdo);
@@ -98,12 +97,7 @@ include_once('includes/admin_functions.php');
     
     </div>
   </div>
-  
-
-
-
 </div>
-
 
 <?php
 // Added footer to bottom of page
