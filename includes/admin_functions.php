@@ -407,9 +407,10 @@
           echo "<td>". $pet->pet_age . "</td>";
           echo "<td>". $pet->pet_description . "</td>";
           if($pet->pet_active){
-            echo "<td><a href='admin_area.php?view=pets&id=" . $pet->pet_id . "'><button type='button'>X</button></a></td>";
+            echo "<td><a href='admin_area.php?view=pets&id=" . $pet->pet_id . "'><button type='button'>Hide pet</button></a></td>";
           }else{
-            echo '<td></td>';
+            
+            echo "<td><a href='admin_area.php?view=pets&id=" . $pet->pet_id . "'><button type='button'>Display pet</button></a></td>";
           }
         }
       }
@@ -418,14 +419,17 @@
       echo "</div>";
   }
 
-  function removePet($pdo, $id){
+  function togglePet($pdo, $id){
     // Query
-    // Pulls records from forms table and appends data from relevant tables
-    $sql = 'UPDATE pet SET pet_active = false WHERE pet_id = ?';
+    // Toggle a pet_active attribute for a given pet
+    $sql = 'UPDATE pet SET pet_active = !pet_active WHERE pet_id = ?';
 
     // Prepare and execute statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
+
+    // Redirect user to the admin area - view pets
+    redirect('admin_area.php?view=pets');
   }
 
   function showEmailToggle($pdo){

@@ -72,12 +72,12 @@ include_once('includes/admin_functions.php');
               include_once('addPet.php');
               break;
             case 'finaliseAdoption':
-              removePet($pdo, $_GET['pet']);
+              togglePet($pdo, $_GET['pet']);
               setFormStatus($pdo, $_GET['form'], 'Finalised');
               break;
             case 'pets':
               if(isset($_GET['id'])){
-                removePet($pdo, $_GET['id']);
+                togglePet($pdo, $_GET['id']);
               }
               displayPets($pdo);
               break;
