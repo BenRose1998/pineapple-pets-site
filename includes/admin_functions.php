@@ -71,9 +71,9 @@
     $answers = $stmt->fetchAll();
     
     if($answers){
-      echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Approved"><button type="button">Approve for house visit</button></a>';
-      echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Rejected"><button type="button">Reject</button></a>';
-      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '"><button type="button">Finalise</button></a>';
+      echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Approved" class="view-form-btn"><button type="button">Approve for house visit</button></a>';
+      echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Rejected" class="view-form-btn"><button type="button">Reject</button></a>';
+      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '" class="view-form-btn"><button type="button">Finalise (Hides pet from Pets page)</button></a>';
 
       // Display form information
       echo '<h3>User Information</h3>';

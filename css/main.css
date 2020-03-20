@@ -253,6 +253,12 @@ button#go {
   margin-bottom: 1.5%;
 }
 
+/* View form */
+
+.view-form-btn{
+  margin-right: 1%;
+}
+
 /* Mobile device responsive */
 @media only screen and (max-width: 767px) {
   #bigimage h1 {
