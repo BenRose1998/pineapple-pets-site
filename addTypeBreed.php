@@ -68,7 +68,7 @@ if (isset($_POST) && !empty($_POST)) {
 
 ?>
 
-<p>Please add one at a time</p>
+<p>Please add one at a time (max: 20 characters)</p>
 
 <form method="post" action="admin_area.php?view=addTypeBreed" enctype="multipart/form-data">
   <div class="row">
@@ -85,7 +85,7 @@ if (isset($_POST) && !empty($_POST)) {
 <form method="post" action="admin_area.php?view=addTypeBreed" enctype="multipart/form-data">
   <div class="row">
     <div class="form-group col-11">
-      <label for="name">Pet Type (e.g. Labrador)</label>
+      <label for="name">Pet Breed (e.g. Labrador)</label>
       <input type="text" class="form-control" id="breed" name="breed">
     </div>
     <button type="submit" class="col-1">Add</button>
