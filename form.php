@@ -202,7 +202,9 @@ if(!isset($_SESSION['user_id'])){
       }else{
         // If no questions (all form categories have been completed)
         // Email all staff who have email notifications enabled - notifying them that an adoption form has been submitted
-        sendEmail($pdo);
+        // Uncomment this line when email server is configured for an email to be sent
+        // sendEmail($pdo);
+
         // Redirect the user to their dashboard
         redirect('dashboard.php');
         // Exit script
