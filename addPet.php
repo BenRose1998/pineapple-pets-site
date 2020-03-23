@@ -126,7 +126,7 @@ if (isset($_POST) && !empty($_POST)) {
     <input type="text" class="form-control" id="age" name="age">
   </div>
   <div class="form-group">
-    <label for="type">Type</label>
+    <label for="type">Type</label> <a href="admin_area.php?view=addTypeBreed">(Add type)</a>
     <select class="form-control" id="type" name="type">
       <?php
       // Query
@@ -152,7 +152,7 @@ if (isset($_POST) && !empty($_POST)) {
     </select>
   </div>
   <div class="form-group">
-    <label for="breed">Breed</label>
+    <label for="breed">Breed</label> <a href="admin_area.php?view=addTypeBreed">(Add breed)</a>
     <select class="form-control" id="breed" name="breed">
       <?php
       // Query

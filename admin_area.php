@@ -32,6 +32,9 @@ include_once('includes/admin_functions.php');
         <a class="nav-link" href="admin_area.php?view=addPet">Add Pet</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="admin_area.php?view=addTypeBreed">Add Type/Breed</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="admin_area.php?view=users">Users</a>
       </li>
       <li class="nav-item">
@@ -84,6 +87,10 @@ include_once('includes/admin_functions.php');
             case 'addPet':
               // Include the add pet page
               include_once('addPet.php');
+              break;
+            case 'addTypeBreed':
+              // Include the add type page
+              include_once('addTypeBreed.php');
               break;
             case 'finaliseAdoption':
               // Call the toggle pet function, pass it a pet id
