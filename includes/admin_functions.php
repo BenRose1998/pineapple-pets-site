@@ -453,6 +453,7 @@
                   <th>Pet</th>
                   <th>Email</th>
                   <th>Adoption Form Created</th>
+                  <th>View Form</th>
                 </tr>
               </thead>
               <tbody>
@@ -467,6 +468,7 @@
           echo "<td>". $adopter->pet_name . "</td>";
           echo "<td>". $adopter->user_email . "</td>";
           echo "<td>". $adopter->form_created . "</td>";
+          echo "<td><a href='admin_area.php?view=form&id=" . $adopter->form_id . "'><button type='button'>View</button></a></td>";
           echo "</tr>";
         }
       }
