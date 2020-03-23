@@ -38,6 +38,9 @@ include_once('includes/admin_functions.php');
         <a class="nav-link" href="admin_area.php?view=users">Users</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="admin_area.php?view=adopters">Adopters</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="admin_area.php?view=settings">Settings</a>
       </li>
     </ul>
@@ -84,6 +87,9 @@ include_once('includes/admin_functions.php');
               // Call the display users function
               displayUsers($pdo);
               break;
+            case 'adopters':
+              displayAdopters($pdo);
+              break;
             case 'addPet':
               // Include the add pet page
               include_once('addPet.php');
@@ -97,6 +103,8 @@ include_once('includes/admin_functions.php');
               togglePet($pdo, $_GET['pet']);
               // Call the set form status function, pass it a form id and a status text string
               setFormStatus($pdo, $_GET['form'], 'Finalised');
+              // Call the add adopter function, pass it pet id and user id
+              addAdopter($pdo, $_GET['pet'], $_GET['user']);
               break;
             case 'pets':
               // If id has been sent call the toggle pet function

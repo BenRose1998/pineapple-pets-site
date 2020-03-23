@@ -39,6 +39,14 @@ CREATE TABLE IF NOT EXISTS pet(
   CONSTRAINT FK_pet_pet_breed_id FOREIGN KEY (pet_breed_id) REFERENCES pet_breed(pet_breed_id),
   CONSTRAINT check_pet_gender CHECK(pet_gender IN (0, 1))
 );
+CREATE TABLE IF NOT EXISTS adopter(
+  adopter_id INT(64) PRIMARY KEY AUTO_INCREMENT,
+  user_id INT(64) NOT NULL,
+  pet_id INT(64) NOT NULL,
+  adopter_date DATETIME NOT NULL,
+  CONSTRAINT FK_adopter_user_id FOREIGN KEY (user_id) REFERENCES user(user_id),
+  CONSTRAINT FK_adopter_pet_id FOREIGN KEY (pet_id) REFERENCES pet(pet_id)
+);
 CREATE TABLE IF NOT EXISTS form(
   form_id INT(64) PRIMARY KEY AUTO_INCREMENT,
   user_id INT(64) NOT NULL,

@@ -78,7 +78,7 @@
       // Create three buttons used to change the form's status
       echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Approved" class="view-form-btn"><button type="button">Approve for house visit</button></a>';
       echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Rejected" class="view-form-btn"><button type="button">Reject</button></a>';
-      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '" class="view-form-btn"><button type="button">Finalise (Hides pet from Pets page)</button></a>';
+      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '&user=' . $answers[0]->user_id . '" class="view-form-btn"><button type="button">Finalise (Hides pet from Pets page)</button></a>';
 
       // Display form information
       echo '<h3>User Information</h3>';
@@ -388,7 +388,7 @@
     $users = $stmt->fetchAll();
 
     ?>
-    <!-- Create table -->
+          <!-- Create table -->
           <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -403,7 +403,7 @@
               <?php
       // Checks if there is at least 1 result from database query
       if($users) {
-        // For each loop to display all filmss
+        // For each loop to display all users
         foreach($users as $user){
           // Result is displayed using HTML elements
           echo "<tr>";
@@ -417,6 +417,55 @@
           }else{
             echo "<td></td>";
           }
+          echo "</tr>";
+        }
+      }
+      echo "</tbody>";
+      echo "</table>";
+      echo "</div>";
+  }
+  
+  // Display all adopters and their information
+  function displayAdopters($pdo){
+    echo "<div class='container' id='tab_content'>";
+
+    // Query
+    // Pulls data on all users and left joins the staff table 
+    $sql = "SELECT *
+            FROM adopter
+            INNER JOIN user ON adopter.user_id = user.user_id
+            INNER JOIN pet ON adopter.pet_id = pet.pet_id
+            ORDER BY adopter_id DESC";
+
+    // Prepare and execute statement
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    // Saves all results in object
+    $adopters = $stmt->fetchAll();
+
+    ?>
+            <!-- Create table -->
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Pet</th>
+                  <th>Email</th>
+                  <th>Adoption Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+      // Checks if there is at least 1 result from database query
+      if($adopters) {
+        // For each loop to display all adopters
+        foreach($adopters as $adopter){
+          // Result is displayed using HTML elements
+          echo "<tr>";
+          echo "<td>". $adopter->user_first_name . ' ' . $adopter->user_last_name . "</td>";
+          echo "<td>". $adopter->pet_name . "</td>";
+          echo "<td>". $adopter->user_email . "</td>";
+          echo "<td>". $adopter->adopter_date . "</td>";
           echo "</tr>";
         }
       }
@@ -455,20 +504,20 @@
     $pets = $stmt->fetchAll();
 
     ?>
-    <!-- Create table -->
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Pet Name</th>
-                    <th>Type</th>
-                    <th>Breed</th>
-                    <th>Age</th>
-                    <th>Description</th>
-                    <th>Display</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
+                  <!-- Create table -->
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>Pet Name</th>
+                        <th>Type</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Description</th>
+                        <th>Display</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
       // Checks if there is at least 1 result from database query
       if($pets) {
         // For each loop to display all filmss
@@ -503,9 +552,19 @@
     // Prepare and execute statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
+  }
 
-    // Redirect user to the admin area - view pets
-    redirect('admin_area.php?view=pets');
+  function addAdopter($pdo, $pet_id, $user_id){
+    // Store current date and time in SQL format
+    $created = date('Y-m-d H:i:s');
+
+    // Query
+    // Pet data is inserted into the database
+    $sql = 'INSERT INTO adopter (user_id, pet_id, adopter_date) VALUES (?, ?, ?)';
+
+    // Prepare and execute statement
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$user_id, $pet_id, $created]);
   }
 
   // Display a toggle email notification button
