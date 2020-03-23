@@ -78,7 +78,7 @@
       // Create three buttons used to change the form's status
       echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Approved" class="view-form-btn"><button type="button">Approve for house visit</button></a>';
       echo '<a href="admin_area.php?view=setFormStatus&id=' . $id . '&status=Rejected" class="view-form-btn"><button type="button">Reject</button></a>';
-      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '&user=' . $answers[0]->user_id . '" class="view-form-btn"><button type="button">Finalise (Hides pet from Pets page)</button></a>';
+      echo '<a href="admin_area.php?view=finaliseAdoption&form=' . $id . '&pet=' . $answers[0]->pet_id . '" class="view-form-btn"><button type="button">Finalise (Hides pet from Pets page)</button></a>';
 
       // Display form information
       echo '<h3>User Information</h3>';
@@ -432,10 +432,11 @@
     // Query
     // Pulls data on all users and left joins the staff table 
     $sql = "SELECT *
-            FROM adopter
-            INNER JOIN user ON adopter.user_id = user.user_id
-            INNER JOIN pet ON adopter.pet_id = pet.pet_id
-            ORDER BY adopter_id DESC";
+            FROM form
+            INNER JOIN user ON form.user_id = user.user_id
+            INNER JOIN pet ON form.pet_id = pet.pet_id
+            WHERE form_status = 'Finalised'
+            ORDER BY form_id DESC";
 
     // Prepare and execute statement
     $stmt = $pdo->prepare($sql);
@@ -451,7 +452,7 @@
                   <th>Name</th>
                   <th>Pet</th>
                   <th>Email</th>
-                  <th>Adoption Date</th>
+                  <th>Adoption Form Created</th>
                 </tr>
               </thead>
               <tbody>
@@ -465,7 +466,7 @@
           echo "<td>". $adopter->user_first_name . ' ' . $adopter->user_last_name . "</td>";
           echo "<td>". $adopter->pet_name . "</td>";
           echo "<td>". $adopter->user_email . "</td>";
-          echo "<td>". $adopter->adopter_date . "</td>";
+          echo "<td>". $adopter->form_created . "</td>";
           echo "</tr>";
         }
       }
@@ -552,19 +553,6 @@
     // Prepare and execute statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
-  }
-
-  function addAdopter($pdo, $pet_id, $user_id){
-    // Store current date and time in SQL format
-    $created = date('Y-m-d H:i:s');
-
-    // Query
-    // Pet data is inserted into the database
-    $sql = 'INSERT INTO adopter (user_id, pet_id, adopter_date) VALUES (?, ?, ?)';
-
-    // Prepare and execute statement
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$user_id, $pet_id, $created]);
   }
 
   // Display a toggle email notification button

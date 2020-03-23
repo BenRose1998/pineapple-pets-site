@@ -103,8 +103,6 @@ include_once('includes/admin_functions.php');
               togglePet($pdo, $_GET['pet']);
               // Call the set form status function, pass it a form id and a status text string
               setFormStatus($pdo, $_GET['form'], 'Finalised');
-              // Call the add adopter function, pass it pet id and user id
-              addAdopter($pdo, $_GET['pet'], $_GET['user']);
               break;
             case 'pets':
               // If id has been sent call the toggle pet function
