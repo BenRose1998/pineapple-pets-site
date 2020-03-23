@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS answer(
   possible_answer_id INT(64) NULL,
   answer_value TEXT(1000),
   CONSTRAINT FK_answer_form_id FOREIGN KEY (form_id) REFERENCES form(form_id),
-  CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id),
+  CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,
   CONSTRAINT FK_answer_possible_answer_id FOREIGN KEY (possible_answer_id) REFERENCES possible_answer(possible_answer_id)
 );
 -- Indexes
@@ -96,7 +96,7 @@ VALUES
     2,
     'Test',
     'User',
-    'david@david.com',
+    'test@test.com',
     '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
     '2020-01-31 17:46:56'
   );
