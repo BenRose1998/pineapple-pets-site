@@ -43,7 +43,7 @@ if(isset($_GET['pet'])){
     <div class="pet-description">
       <h2><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 0 ? 'Male' : 'Female ') ?> |
         <?php echo $pet->pet_age ?> years old </h2>
-      <h3><?php echo $pet->pet_description ?></h3>
+      <p><?php echo $pet->pet_description ?></p>
       <a href='create_form.php?pet=<?php echo $pet->pet_id?>'><button type='button'>Fill in adoption request
           form</button></a>
     </div>

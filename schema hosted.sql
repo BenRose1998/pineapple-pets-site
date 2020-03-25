@@ -91,19 +91,90 @@ INSERT INTO user
 VALUES
   (
     2,
-    'Test',
+    'Admin',
     'User',
-    'test@test.com',
+    'admin@admin.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+
+INSERT INTO user
+VALUES
+  (
+    3,
+    'Test',
+    '1',
+    'test1@test.com',
     '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
     '2020-01-31 17:46:56'
   );
 INSERT INTO user
 VALUES
   (
-    3,
-    'Admin',
-    'User',
-    'admin@admin.com',
+    4,
+    'Test',
+    '2',
+    'test2@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    5,
+    'Test',
+    '3',
+    'test3@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    6,
+    'Test',
+    '4',
+    'test4@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    7,
+    'Test',
+    '5',
+    'test5@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    8,
+    'Test',
+    '6',
+    'test6@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    9,
+    'Test',
+    '7',
+    'test7@test.com',
+    '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
+    '2020-01-31 17:46:56'
+  );
+INSERT INTO user
+VALUES
+  (
+    10,
+    'Test',
+    '8',
+    'test8@test.com',
     '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
     '2020-01-31 17:46:56'
   );
@@ -119,6 +190,9 @@ VALUES
 INSERT INTO pet_breed
 VALUES
   (2, 'Border Collie');
+INSERT INTO pet_breed
+VALUES
+  (3, 'European shorthair');
 INSERT INTO pet
 VALUES
   (
@@ -145,12 +219,35 @@ VALUES
     'Test description',
     true
   );
+INSERT INTO pet
+VALUES
+  (
+    3,
+    2,
+    3,
+    'Molly',
+    2,
+    1,
+    'cat.jpg',
+    'Test description',
+    true
+  );
+INSERT INTO pet
+VALUES
+  (
+    4,
+    2,
+    3,
+    'Holly',
+    3,
+    1,
+    'cat.jpg',
+    'Test description',
+    true
+  );
 INSERT INTO staff
 VALUES
   (1, 1, true);
-INSERT INTO staff
-VALUES
-  (2, 3, true);
 INSERT INTO category (category_name)
 VALUES
   ('Address');
@@ -357,6 +454,7 @@ VALUES
 INSERT INTO possible_answer (question_id, possible_answer_value)
 VALUES
   (16, 'No');
+-- Form 1
 INSERT INTO form VALUES (1, 2, 2, 'Initiated', '2020-03-23 18:09:11');
 INSERT INTO answer (
     answer_id,
@@ -383,3 +481,30 @@ VALUES
   (15, 1, 15, 31, NULL),
   (16, 1, 16, 41, NULL),
   (17, 1, 17, NULL, 'N/A');
+-- Form 2
+INSERT INTO form VALUES (2, 3, 3, 'Initiated', '2020-03-23 18:09:11');
+INSERT INTO answer (
+  answer_id,
+  form_id,
+  question_id,
+  possible_answer_id,
+  answer_value
+)
+VALUES
+(18, 2, 1, NULL, '66'),
+(19, 2, 2, NULL, 'Roebuck Ridge'),
+(20, 2, 3, NULL, 'Barnsley'),
+(21, 2, 4, NULL, 'South Yorkshire'),
+(22, 2, 5, NULL, 'S74 0LJ'),
+(23, 2, 6, NULL, 'test@test.com'),
+(24, 2, 7, NULL, '07747 085603'),
+(25, 2, 8, NULL, '07747 085603'),
+(26, 2, 9, 1, NULL),
+(27, 2, 10, 3, NULL),
+(28, 2, 11, 11, NULL),
+(29, 2, 12, 13, NULL),
+(30, 2, 13, 18, NULL),
+(31, 2, 14, 28, NULL),
+(32, 2, 15, 31, NULL),
+(33, 2, 16, 41, NULL),
+(34, 2, 17, NULL, 'N/A');

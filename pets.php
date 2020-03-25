@@ -80,7 +80,7 @@ include('includes/header.php');
           </a>
           <h3><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 0 ? 'Male' : 'Female ') ?> |
             <?php echo $pet->pet_age ?> years old </h3>
-          <h4><?php echo $pet->pet_description ?></h4>
+          <p><?php echo $pet->pet_description ?></p>
         </div>
       </div>
     </div>
