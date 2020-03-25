@@ -105,6 +105,7 @@ if (isset($_POST) && !empty($_POST)) {
 ?>
 
 <form method="post" action="admin_area.php?view=addPet" enctype="multipart/form-data">
+  <h4>Please fill in all information (including uploading an image)</h4>
   <div class="form-group">
     <label for="file">Select image to upload (must be under 20Mb):</label>
     </br>

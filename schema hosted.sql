@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS answer(
   possible_answer_id INT(64) NULL,
   answer_value TEXT(1000),
   CONSTRAINT FK_answer_form_id FOREIGN KEY (form_id) REFERENCES form(form_id),
-  CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id),
+  CONSTRAINT FK_answer_question_id FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,
   CONSTRAINT FK_answer_possible_answer_id FOREIGN KEY (possible_answer_id) REFERENCES possible_answer(possible_answer_id)
 );
 -- Indexes
@@ -91,9 +91,9 @@ INSERT INTO user
 VALUES
   (
     2,
-    'David',
-    'Rose',
-    'david@david.com',
+    'Test',
+    'User',
+    'test@test.com',
     '$2y$10$07I8wgv643Ol/lTtguU0QerEBi23ht3cue.50GBLV0cWvyFG0MWsq',
     '2020-01-31 17:46:56'
   );
@@ -357,3 +357,29 @@ VALUES
 INSERT INTO possible_answer (question_id, possible_answer_value)
 VALUES
   (16, 'No');
+INSERT INTO form VALUES (1, 2, 2, 'Initiated', '2020-03-23 18:09:11');
+INSERT INTO answer (
+    answer_id,
+    form_id,
+    question_id,
+    possible_answer_id,
+    answer_value
+  )
+VALUES
+  (1, 1, 1, NULL, '66'),
+  (2, 1, 2, NULL, 'Roebuck Ridge'),
+  (3, 1, 3, NULL, 'Barnsley'),
+  (4, 1, 4, NULL, 'South Yorkshire'),
+  (5, 1, 5, NULL, 'S74 0LJ'),
+  (6, 1, 6, NULL, 'test@test.com'),
+  (7, 1, 7, NULL, '07747 085603'),
+  (8, 1, 8, NULL, '07747 085603'),
+  (9, 1, 9, 1, NULL),
+  (10, 1, 10, 3, NULL),
+  (11, 1, 11, 11, NULL),
+  (12, 1, 12, 13, NULL),
+  (13, 1, 13, 18, NULL),
+  (14, 1, 14, 28, NULL),
+  (15, 1, 15, 31, NULL),
+  (16, 1, 16, 41, NULL),
+  (17, 1, 17, NULL, 'N/A');
