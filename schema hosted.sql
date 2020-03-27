@@ -248,6 +248,9 @@ VALUES
 INSERT INTO staff
 VALUES
   (1, 1, true);
+INSERT INTO staff
+VALUES
+  (2, 2, true);
 INSERT INTO category (category_name)
 VALUES
   ('Address');
