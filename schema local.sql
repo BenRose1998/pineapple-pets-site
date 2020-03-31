@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS pet(
   pet_age INT(2) NOT NULL,
   pet_gender INT(1) NOT NULL,
   pet_image VARCHAR(100) NOT NULL,
-  pet_description TEXT(1000),
+  pet_description TEXT(1000) NOT NULL,
   pet_active BOOLEAN DEFAULT true,
   CONSTRAINT FK_pet_pet_type_id FOREIGN KEY (pet_type_id) REFERENCES pet_type(pet_type_id),
   CONSTRAINT FK_pet_pet_breed_id FOREIGN KEY (pet_breed_id) REFERENCES pet_breed(pet_breed_id),
