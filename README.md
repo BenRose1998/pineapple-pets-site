@@ -1,7 +1,7 @@
 # Pineapple Pets Site
  A website for Pineapple Pet Sanctuary, a small non-profit pet adoption company based in Worcester, who currently have a paper-based administrative system. 
  
-How can I database driven website aid aid the administration of their company?
+How can I database driven website aid the administration of their company?
  
 The focus of this site is on the admin area, which includes:
 - Dynamic form creation tool - question types, questions and options stored in database and rendered as HTML when requested.
