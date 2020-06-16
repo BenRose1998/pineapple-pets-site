@@ -38,8 +38,8 @@ if(isset($_GET['pet'])){
     ?>
 
   <div class="view-pet">
-    <h1><?php echo $pet->pet_name ?></h1>
-    <img src="images/<?php echo $pet->pet_image ?>" alt="">
+    <h1 id="pet-name"><?php echo $pet->pet_name ?></h1>
+    <img src="images/<?php echo $pet->pet_image ?>" aria-labelledby="pet-name" alt="<?php echo $pet->pet_name ?>">
     <div class="pet-description">
       <h2><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 0 ? 'Male' : 'Female ') ?> |
         <?php echo $pet->pet_age ?> years old </h2>

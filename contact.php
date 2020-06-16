@@ -10,21 +10,21 @@ include('includes/header.php');
 
   <div class="row" id="icons">
     <figure class="icon">
-      <i class="fas fa-phone fa-7x"></i>
-      <h2>Phone</h2>
+      <i class="fas fa-phone fa-7x" aria-labelledby="phone-title" alt="Phone icon"></i>
+      <h2 id="phone-title">Phone</h2>
       <p>07799883853</p>
     </figure>
     <figure class="icon">
-      <i class="fab fa-facebook fa-7x"></i>
-      <h2>Facebook</h2>
+      <i class="fab fa-facebook fa-7x" aria-labelledby="facebook-title" alt="Facebook icon"></i>
+      <h2 id="facebook-title">Facebook</h2>
       <p></p>
       <a href="https://www.facebook.com/pineapplepetsanctuary">
         <button type="button">Go to our page</button>
       </a>
     </figure>
     <figure class="icon">
-      <i class="fas fas fa-envelope fa-7x"></i>
-      <h2>Email</h2>
+      <i class="fas fas fa-envelope fa-7x" aria-labelledby="email-title" alt="Email icon"></i>
+      <h2 id="email-title">Email</h2>
       <p>pineapplepetsanctuary@gmail.com</p>
     </figure>
   </div>

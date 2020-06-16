@@ -73,10 +73,10 @@ include('includes/header.php');
   <figure class="pet">
     <div class="card">
       <div class="card-body">
-        <img class="pet" src='images/<?php echo $pet->pet_image ?>'>
+        <img class="pet" src='images/<?php echo $pet->pet_image ?>' aria-labelledby="<?php echo $pet->pet_id ?>" alt="<?php echo $pet->pet_name ?>">
         <div class="pets-description col-md-9">
           <a href='view_pet.php?pet=<?php echo $pet->pet_id ?>' class='no-underline'>
-            <h2><?php echo $pet->pet_name ?></h2>
+            <h2 id="<?php echo $pet->pet_id ?>"><?php echo $pet->pet_name ?></h2>
           </a>
           <h3><?php echo $pet->pet_breed_name ?> | <?php echo ($pet->pet_gender == 0 ? 'Male' : 'Female ') ?> |
             <?php echo $pet->pet_age ?> years old </h3>
