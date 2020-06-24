@@ -1,6 +1,6 @@
 <?php
 require_once('includes/connect.php');
-$header = "My Account";
+$header = "Admin Area";
 // Added header to top of page
 include_once('includes/header.php');
 

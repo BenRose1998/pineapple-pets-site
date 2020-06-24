@@ -1,5 +1,5 @@
 <?php
-$header = "Home Page";
+$header = "About";
 // Added header to top of page
 include('includes/header.php');
 ?>

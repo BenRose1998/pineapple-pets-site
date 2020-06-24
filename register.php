@@ -1,6 +1,6 @@
 <?php
 require_once('includes/connect.php');
-$header = "Home Page";
+$header = "Register";
 // Added header to top of page
 include('includes/header.php');
 
